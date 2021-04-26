@@ -8,7 +8,7 @@ class ProductModel(Base):
 
     __tablename__ = 'product'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, sql_autoincrement=True)
     seller_id = Column(Integer, primary_key=True)
     name = Column(String)
     description = Column(String)

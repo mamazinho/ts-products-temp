@@ -7,6 +7,6 @@ class CategoryModel(Base):
 
     __tablename__ = 'category'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, sql_autoincrement=True)
     name = Column(String)
     description = Column(String)
