@@ -1,10 +1,10 @@
 from sqlalchemy import ForeignKey, Column, Integer, String, Float, DateTime, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from config.base import Base
+from config.settings import Settings
 from datetime import datetime
 
-class ProductPriceModel(Base):
+class ProductPriceModel(Settings.Base):
 
     __tablename__ = 'product_price'
 

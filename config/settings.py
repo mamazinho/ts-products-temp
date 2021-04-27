@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 
 class Settings:
 
-    def __init__(self):
-        self.engine = create_engine('sqlite:///database.db', echo=False)
+    Engine = create_engine('sqlite:///database.db', echo=False)
+    Base = declarative_base()

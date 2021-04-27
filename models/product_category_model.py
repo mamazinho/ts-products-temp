@@ -1,9 +1,9 @@
 from sqlalchemy import ForeignKey, Column, Integer, String, Float, DateTime, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from config.base import Base
+from config.settings import Settings
 
-class ProductCategoryModel(Base):
+class ProductCategoryModel(Settings.Base):
 
     __tablename__ = 'product_category'
 
