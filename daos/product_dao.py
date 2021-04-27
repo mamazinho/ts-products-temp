@@ -1,6 +1,6 @@
 from config.database import Database
 from models.product_model import ProductModel
-from models.product_category_model import ProductCategoryModel
+from models.category_model import CategoryModel
 from datetime import datetime
 
 class ProductDao:
@@ -10,6 +10,8 @@ class ProductDao:
 
     def create(self):
         with Database() as session:
+            categories = self.__categories_object(session, self.product.get('categories'))
+                
             product = ProductModel(
                 seller_id = self.product['seller_id'],
                 name = self.product['name'],
@@ -18,6 +20,7 @@ class ProductDao:
                 actual_stock = self.product['actual_stock'],
                 actual_price = self.product['actual_price'],
                 gtin = self.product['gtin'],
+                categories = categories
             )
             session.add(product)
             session.flush()
@@ -31,7 +34,7 @@ class ProductDao:
 
     def read_by_id(self):
         with Database() as session:
-            product = session.query(ProductModel).filter_by(id=self.product['id']).first()
+            product = session.query(ProductModel).filter_by(id=self.product['id'])
             return product 
 
     def read_by_name(self):
@@ -54,6 +57,7 @@ class ProductDao:
             return self.create()
         
         with Database() as session:
+            categories = self.__categories_object(session, self.product.get('categories'))
             the_product = self.read_by_id()
             the_product.update({
                 'id': self.product['id'],
@@ -64,6 +68,18 @@ class ProductDao:
                 'actual_stock': self.product.get('actual_stock', the_product.actual_stock),
                 'actual_price': self.product.get('actual_price', the_product.actual_price),
                 'gtin': self.product.get('gtin', the_product.gtin),
+                'categories': categories if categories else the_product.categories
             })
 
             session.commit()
+
+    def __categories_object(self, session, product_categories):
+        if not product_categories:
+            return
+
+        categories = []
+        for category_id in product_categories:
+            category = session.query(CategoryModel).filter_by(id=category_id)
+            categories.append(category)
+            
+        return categories

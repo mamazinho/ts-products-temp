@@ -1,9 +1,6 @@
-from models.product_model import ProductModel
-from models.category_model import CategoryModel
-from models.product_category_model import ProductCategoryModel
-from models.product_price_model import ProductPriceModel
-from models.product_stock_model import ProductStockModel
-from daos.product_dao import ProductDao
+from controllers.product_controller import ProductController
+from controllers.category_controller import CategoryController
+
 from config.database import Database
 from datetime import datetime
 
@@ -34,9 +31,19 @@ class Main:
     }
 
     def __init__(self):
-        print(ProductDao().read())
-        ProductDao(self.prod_create).create()
-        ProductDao(self.prod_update).update()
-        ProductDao(self.prod_delete).delete()
+        p = ProductController()
+        c = CategoryController()
+        c.create_category('nova cat', 'essa é umanova cat')
+        p.create_product(
+            name="Esse é um novo produto",
+            description="novo prod",
+            seller_id=1,
+            actual_stock=20,
+            actual_price=20,
+            gtin="ASSAS",
+            active=True,
+            categories=[1]
+        )
+        p.read_all_products()
 
 Main()
