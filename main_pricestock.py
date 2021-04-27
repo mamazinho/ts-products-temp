@@ -77,7 +77,7 @@ class Main:
         time.sleep(1)
         print('\nAtualizando Estoque')
         time.sleep(1)
-        self.update_product_stock
+        self.update_product_stock()
         time.sleep(1)
         print('\nLendo Produto por GTIN')
         time.sleep(1)
@@ -89,7 +89,7 @@ class Main:
         time.sleep(1)
         print('\nLendo Produto por Seller')
         time.sleep(1)
-        self.read_product_by_seller_id
+        self.read_product_by_seller_id()
         time.sleep(1)
 
         
@@ -156,11 +156,11 @@ class Main:
         print("Produto Atualizado")
 
     def update_product_price(self):
-        ProductController().update_product(self.product_id, actual_price= 5)
+        ProductController().update_product(self.product_id, actual_price=5)
         print("Preço Atualizado")
 
     def update_product_stock(self):
-        ProductController().update_product(self.product_id, actual_stock= 10)
+        ProductController().update_product(self.product_id, actual_stock=10)
         print("Estoque Atualizado")
 
     def read_product_by_id(self):
