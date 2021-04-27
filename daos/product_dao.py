@@ -58,17 +58,17 @@ class ProductDao:
         
         with Database() as session:
             categories = self.__categories_object(session, self.product.get('categories'))
-            the_product = self.read_by_id()
+            the_product = session.query(ProductModel).filter_by(id=self.product['id'])
             the_product.update({
                 'id': self.product['id'],
-                'seller_id': self.product.get('seller_id', the_product.seller_id),
-                'name': self.product.get('name', the_product.name),
-                'description': self.product.get('description', the_product.description),
+                'seller_id': self.product.get('seller_id', the_product[0].seller_id),
+                'name': self.product.get('name', the_product[0].name),
+                'description': self.product.get('description', the_product[0].description),
                 'created_at': datetime.now(),
-                'actual_stock': self.product.get('actual_stock', the_product.actual_stock),
-                'actual_price': self.product.get('actual_price', the_product.actual_price),
-                'gtin': self.product.get('gtin', the_product.gtin),
-                'categories': categories if categories else the_product.categories
+                'actual_stock': self.product.get('actual_stock', the_product[0].actual_stock),
+                'actual_price': self.product.get('actual_price', the_product[0].actual_price),
+                'gtin': self.product.get('gtin', the_product[0].gtin),
+                'categories': categories if categories else the_product[0].categories
             })
 
             session.commit()

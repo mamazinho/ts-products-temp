@@ -8,12 +8,12 @@ class CategoryController():
             "name": name,
             "description": description
         }
-        CategoryDao(new_category).create()
+        category_id = CategoryDao(new_category).create()
+        return category_id
 
     def read_all_categories(self):
         list_categories = CategoryDao().read_all()
-        for item in list_categories:
-            print(item)
+        return list_categories
     
     def delete_category(self, category_id):
         category = {

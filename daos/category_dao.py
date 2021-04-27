@@ -30,8 +30,8 @@ class CategoryDao:
             category_update = session.query(CategoryModel).filter_by(id=self.category['id'])
             category_update.update({
                 "id": self.category['id'],
-                "name": self.category.get('name', category_update.name),
-                "description": self.category.get('description', category_update.description),
+                "name": self.category.get('name', category_update[0].name),
+                "description": self.category.get('description', category_update[0].description),
             })
             session.commit()
     
