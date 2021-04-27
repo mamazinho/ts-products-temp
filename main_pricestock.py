@@ -72,47 +72,47 @@ class Main:
         self.update_product_price()
         time.sleep(0)
         print('\nLendo Produto por Nome')
-        time.sleep(1)
+        time.sleep(0)
         self.read_product_by_name()
-        time.sleep(1)
+        time.sleep(0)
         print('\nAtualizando Estoque')
-        time.sleep(1)
+        time.sleep(0)
         self.update_product_stock()
-        time.sleep(1)
+        time.sleep(0)
         print('\nLendo Produto por GTIN')
-        time.sleep(1)
+        time.sleep(0)
         self.read_product_by_gtin()
-        time.sleep(1)
+        time.sleep(0)
         print('\nInativando Produto:', self.product_id)
-        time.sleep(1)
+        time.sleep(0)
         self.delete_category()
-        time.sleep(1)
+        time.sleep(0)
         print('\nLendo Produto por Seller')
-        time.sleep(1)
+        time.sleep(0)
         self.read_product_by_seller_id()
-        time.sleep(1)
+        time.sleep(0)
 
         
         
 
         print('\nCriando Product Price')
-        time.sleep(1)
+        time.sleep(0)
         self.create_product_price()
-        time.sleep(1)
+        time.sleep(0)
         print('\nLendo Todos Product Price')
-        time.sleep(1)
+        time.sleep(0)
         self.read_all_product_price()
-        time.sleep(1)
+        time.sleep(0)
 
 
         print('\nCriando Product Stock')
-        time.sleep(1)
+        time.sleep(0)
         self.create_product_stock()
-        time.sleep(1)
+        time.sleep(0)
         print('\nLendo Todos Product Stock')
-        time.sleep(1)
+        time.sleep(0)
         self.read_all_product_stock()
-        time.sleep(1)
+        time.sleep(0)
 
 
 
@@ -152,7 +152,7 @@ class Main:
             print(prod)
     
     def update_product(self):
-        ProductController().update_product(self.product_id, 'Test Prod', "Test prod desc", self.seller_id, 15, 15, 'test gtin updated', True, self.categories)
+        ProductController().update_product(self.product_id, 'Test Prod', "Test prod desc", self.seller_id, 15, 15, 'test gtin updated', True, [self.categories[0]])
         print("Produto Atualizado")
 
     def update_product_price(self):

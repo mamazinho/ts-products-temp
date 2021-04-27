@@ -69,10 +69,12 @@ class ProductDao:
                 'actual_stock': self.product['actual_stock'] if self.product['actual_stock'] else the_product[0].actual_stock,
                 'actual_price': self.product['actual_price'] if self.product['actual_price'] else the_product[0].actual_price,
                 'gtin': self.product['gtin'] if self.product['gtin'] else the_product[0].gtin,
-            #    'categories': categories if categories else the_product[0].categories
-            #    'categories': [CategoryModel(id = 12, name = "teste cat", description = "teste desc")]
             })
-
+            the_product = session.query(ProductModel).get(self.product['id'])
+            if categories:
+                the_product.categories[:] = []
+                for cat in categories:
+                    the_product.categories.append(cat)
             session.commit()
 
     def __categories_object(self, session, product_categories):
