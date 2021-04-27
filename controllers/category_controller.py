@@ -1,10 +1,4 @@
-from models.product_model import ProductModel
-from models.category_model import CategoryModel
-from models.product_category_model import ProductCategoryModel
-from config.database import Database
-
 from daos.category_dao import CategoryDao
-from models.category_model import CategoryModel
 
 
 class CategoryController():

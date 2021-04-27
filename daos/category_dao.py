@@ -1,5 +1,3 @@
-from sqlalchemy.sql import text
-
 from config.database import Database
 from models.category_model import CategoryModel
 
