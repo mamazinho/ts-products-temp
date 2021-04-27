@@ -24,7 +24,7 @@ class ProductController:
         self.create_product_price(product_id, actual_price)
         self.create_product_stock(product_id, actual_stock)
 
-    def update_product(self, product_id, name, description, seller_id, actual_stock, actual_price, gtin, active, categories=[]):
+    def update_product(self, product_id, name=None, description=None, seller_id=None, actual_stock=None, actual_price=None, gtin=None, active=True, categories=[]):
         product = {
             'id': product_id,
             'name': name,
@@ -42,9 +42,10 @@ class ProductController:
 
     def delete_product(self, product_id):
         product = {
-            'id': product_id
+            'id': product_id,
+            'active': False
         }
-        ProductDao(product).delete()
+        ProductDao(product).update()
 
     def read_all(self):
         products = ProductDao().read()

@@ -31,7 +31,7 @@ class ProductDao:
 
     def read_by_id(self):
         with Database() as session:
-            product = session.query(ProductModel).filter_by(id=self.product['id'])
+            product = session.query(ProductModel).filter_by(id=self.product['id']).first()
             return product 
 
     def read_by_name(self):
@@ -54,25 +54,16 @@ class ProductDao:
             return self.create()
         
         with Database() as session:
-            the_product = session.query(ProductModel).filter_by(id=self.product['id'])
+            the_product = self.read_by_id()
             the_product.update({
                 'id': self.product['id'],
-                'seller_id': self.product['seller_id'],
-                'name': self.product['name'],
-                'description': self.product['description'],
+                'seller_id': self.product.get('seller_id', the_product.seller_id),
+                'name': self.product.get('name', the_product.name),
+                'description': self.product.get('description', the_product.description),
                 'created_at': datetime.now(),
-                'actual_stock': self.product['actual_stock'],
-                'actual_price': self.product['actual_price'],
-                'gtin': self.product['gtin'],
+                'actual_stock': self.product.get('actual_stock', the_product.actual_stock),
+                'actual_price': self.product.get('actual_price', the_product.actual_price),
+                'gtin': self.product.get('gtin', the_product.gtin),
             })
-
-            session.commit()
-
-    def delete(self):
-        with Database() as session:
-            try:
-                session.query(ProductModel).filter_by(id=self.product['id']).delete()
-            except Exception as e:
-                print('Error >> ', e)
 
             session.commit()
