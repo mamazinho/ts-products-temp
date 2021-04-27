@@ -8,8 +8,8 @@ class ProductModel(Settings.Base):
 
     __tablename__ = 'product'
 
-    id = Column(Integer, primary_key=True, sql_autoincrement=True)
-    seller_id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
+    seller_id = Column(Integer)
     name = Column(String)
     description = Column(String)
     created_at = Column(DateTime)
@@ -19,3 +19,6 @@ class ProductModel(Settings.Base):
     gtin = Column(String)
     active = Column(Boolean)
     categories = relationship('CategoryModel', secondary='product_category')
+
+    def __str__(self):
+        return f"{self.id} - {self.seller_id} - {self.name} - {self.description} - {self.created_at} - {self.updated_at} - {self.actual_stock} - {self.actual_price} - {self.gtin} - {self.active} - {self.categories}"

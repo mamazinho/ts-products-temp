@@ -13,7 +13,7 @@ class Main:
         ProductModel()
         with Database() as session:
             session.add(ProductModel(
-                id=2,
+                id=3,
                 seller_id=1,
                 name='test',
                 description='test',
