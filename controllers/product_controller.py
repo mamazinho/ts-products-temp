@@ -47,7 +47,7 @@ class ProductController:
         }
         ProductDao(product).update()
 
-    def read_all(self):
+    def read_all_products(self):
         products = ProductDao().read()
         for prod in products:
             print(prod)

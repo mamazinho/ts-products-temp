@@ -29,11 +29,11 @@ class CategoryDao:
         if not 'id' in self.category or not self.category['id']:
             return self.create()
         with Database() as session:
-            category_update = session.query(CategoryModel).filter_by(id=self.category['id'])
+            category_update = session.query(CategoryModel).filter_by(id=self.category['id']).first()
             category_update.update({
                 "id": self.category['id'],
-                "name": self.category['name'],
-                "description": self.category['description'],
+                "name": self.category.get('name', category_update.name),
+                "description": self.category.get('description', category_update.description),
             })
             session.commit()
     
