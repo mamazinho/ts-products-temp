@@ -1,5 +1,6 @@
 from config.database import Database
 from models.product_model import ProductModel
+from models.product_category_model import ProductCategoryModel
 from datetime import datetime
 
 class ProductDao:
@@ -42,7 +43,12 @@ class ProductDao:
         with Database() as session:
             product = session.query(ProductModel).filter_by(gtin=self.product['gtin'])
             return product 
-        
+
+    def read_by_seller_id(self):
+        with Database() as session:
+            product = session.query(ProductModel).filter_by(seller_id=self.product['seller_id']).all()
+            return product
+
     def update(self):
         if not 'id' in self.product or not self.product['id']:
             return self.create()
