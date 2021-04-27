@@ -7,6 +7,9 @@ class CategoryModel(Settings.Base):
 
     __tablename__ = 'category'
 
-    id = Column(Integer, primary_key=True, sql_autoincrement=True)
+    id = Column(Integer, primary_key=True)
     name = Column(String)
     description = Column(String)
+
+    def __str__(self):
+        return f'{self.id} - {self.name} - {self.description}'
