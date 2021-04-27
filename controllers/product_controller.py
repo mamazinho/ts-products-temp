@@ -23,6 +23,7 @@ class ProductController:
         product_id = ProductDao(product).create()
         self.create_product_price(product_id, actual_price)
         self.create_product_stock(product_id, actual_stock)
+        return product_id
 
     def update_product(self, product_id, name=None, description=None, seller_id=None, actual_stock=None, actual_price=None, gtin=None, active=True, categories=[]):
         product = {
@@ -87,29 +88,11 @@ class ProductController:
                 "price": price
                 }
         id = ProductPriceDao(tdict).create()
-        print("Criado Product Price com id:", id)
         return id
 
     def read_all_product_price(self):
         prices = ProductPriceDao().read_all()
-        print('Product Price lido')
         return prices
-
-    def read_by_product_id_product_price(self):
-        tdict = {
-                "product_id": 2
-                }
-        prices = ProductPriceDao(tdict).read_by_product_id()
-        print('Product Price lido')
-        return prices
-    
-    def read_by_id_product_price(self):
-        tdict = {
-                "id": 1
-                }
-        price = ProductPriceDao(tdict).read_by_id()
-        print('Product Price lido')
-        return price
 
 
     # Product Stock table (history of stocks)
@@ -119,30 +102,12 @@ class ProductController:
                 "stock": stock
                 }
         id = ProductStockDao(tdict).create()
-        print("Criado Product Stock com id:", id)
         return id
 
     def read_all_product_stock(self):
         stocks = ProductStockDao().read_all()
-        print('Product Stock lido')
         return stocks
 
-    def read_by_product_id_product_stock(self):
-        tdict = {
-                "product_id": 2
-                }
-        stocks = ProductStockDao(tdict).read_by_product_id()
-        print('Product Stock lido')
-        return stocks
-
-    
-    def read_by_id_product_stock(self):
-        tdict = {
-                "id": 1
-                }
-        stock = ProductStockDao(tdict).read_by_id()
-        print('Product Stock lido')
-        return stock
 
 # Examples of values
 # prod_create = {

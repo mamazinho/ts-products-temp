@@ -34,23 +34,24 @@ class ProductDao:
 
     def read_by_id(self):
         with Database() as session:
-            product = session.query(ProductModel).filter_by(id=self.product['id'])
-            return product 
+            product = session.query(ProductModel).filter_by(id=self.product['id']).all()
+            return product[0]
+
 
     def read_by_name(self):
         with Database() as session:
-            product = session.query(ProductModel).filter_by(name=self.product['name'])
-            return product 
+            product = session.query(ProductModel).filter(ProductModel.name.contains(self.product['name'])).all()
+            return product[0]
 
     def read_by_gtin(self):
         with Database() as session:
             product = session.query(ProductModel).filter_by(gtin=self.product['gtin'])
-            return product 
+            return product[0] 
 
     def read_by_seller_id(self):
         with Database() as session:
             product = session.query(ProductModel).filter_by(seller_id=self.product['seller_id']).all()
-            return product
+            return product[0]
 
     def update(self):
         if not 'id' in self.product or not self.product['id']:
@@ -61,14 +62,15 @@ class ProductDao:
             the_product = session.query(ProductModel).filter_by(id=self.product['id'])
             the_product.update({
                 'id': self.product['id'],
-                'seller_id': self.product.get('seller_id', the_product[0].seller_id),
-                'name': self.product.get('name', the_product[0].name),
-                'description': self.product.get('description', the_product[0].description),
+                'seller_id': self.product['seller_id'] if self.product['seller_id'] else the_product[0].seller_id,
+                'name': self.product['name'] if self.product['name'] else the_product[0].name,
+                'description': self.product['description'] if self.product['description'] else the_product[0].description,
                 'created_at': datetime.now(),
-                'actual_stock': self.product.get('actual_stock', the_product[0].actual_stock),
-                'actual_price': self.product.get('actual_price', the_product[0].actual_price),
-                'gtin': self.product.get('gtin', the_product[0].gtin),
-                'categories': categories if categories else the_product[0].categories
+                'actual_stock': self.product['actual_stock'] if self.product['actual_stock'] else the_product[0].actual_stock,
+                'actual_price': self.product['actual_price'] if self.product['actual_price'] else the_product[0].actual_price,
+                'gtin': self.product['gtin'] if self.product['gtin'] else the_product[0].gtin,
+            #    'categories': categories if categories else the_product[0].categories
+            #    'categories': [CategoryModel(id = 12, name = "teste cat", description = "teste desc")]
             })
 
             session.commit()
