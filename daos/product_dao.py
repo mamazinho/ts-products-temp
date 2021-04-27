@@ -19,8 +19,9 @@ class ProductDao:
                 gtin = self.product['gtin'],
             )
             session.add(product)
+            session.flush()
             session.commit()
-            return session.flush()
+            return product.id
 
     def read(self):
         with Database() as session:
