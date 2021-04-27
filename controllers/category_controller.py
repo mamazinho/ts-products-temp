@@ -23,8 +23,8 @@ class CategoryController():
 
     def update_category(self, category_id, name=None, description=None):
         category_update = {
-        "id": category_id,
-        "name": name,
-        "description": description
+            "id": category_id,
+            "name": name,
+            "description": description
         }
         CategoryDao(category_update).update()

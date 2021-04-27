@@ -74,12 +74,11 @@ class ProductDao:
             session.commit()
 
     def __categories_object(self, session, product_categories):
-        if not product_categories:
-            return
-
         categories = []
-        for category_id in product_categories:
-            category = session.query(CategoryModel).filter_by(id=category_id)
-            categories.append(category[0])
+
+        if product_categories:
+            for category_id in product_categories:
+                category = session.query(CategoryModel).filter_by(id=category_id)
+                categories.append(category[0])
             
         return categories

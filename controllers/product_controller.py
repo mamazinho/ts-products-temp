@@ -49,40 +49,35 @@ class ProductController:
 
     def read_all_products(self):
         products = ProductDao().read()
-        for prod in products:
-            print(prod)
+        return products
     
     def read_by_id(self, product_id):
         product = {
             'id': product_id
         }
         products = ProductDao(product).read_by_id()
-        for prod in products:
-            print(prod)
+        return products
 
     def read_by_name(self, product_name):
         product = {
             'name': product_name
         }
         products = ProductDao(product).read_by_name()
-        for prod in products:
-            print(prod)
+        return products
 
     def read_by_gtin(self, product_gtin):
         product = {
             'gtin': product_gtin
         }
         products = ProductDao(product).read_by_gtin()
-        for prod in products:
-            print(prod)
+        return products
 
     def read_by_seller_id(self, product_seller_id):
         product = {
             'seller_id': product_seller_id
         }
         products = ProductDao(product).read_by_seller_id()
-        for prod in products:
-            print(prod)
+        return products
 
 
     # Product Price table (history of prices)
@@ -93,29 +88,28 @@ class ProductController:
                 }
         id = ProductPriceDao(tdict).create()
         print("Criado Product Price com id:", id)
+        return id
 
     def read_all_product_price(self):
         prices = ProductPriceDao().read_all()
-        for price in prices:
-            print(price)
         print('Product Price lido')
+        return prices
 
     def read_by_product_id_product_price(self):
         tdict = {
                 "product_id": 2
                 }
         prices = ProductPriceDao(tdict).read_by_product_id()
-        for price in prices:
-            print(price)
         print('Product Price lido')
+        return prices
     
     def read_by_id_product_price(self):
         tdict = {
                 "id": 1
                 }
         price = ProductPriceDao(tdict).read_by_id()
-        print(price)
         print('Product Price lido')
+        return price
 
 
     # Product Stock table (history of stocks)
@@ -126,21 +120,20 @@ class ProductController:
                 }
         id = ProductStockDao(tdict).create()
         print("Criado Product Stock com id:", id)
+        return id
 
     def read_all_product_stock(self):
         stocks = ProductStockDao().read_all()
-        for stock in stocks:
-            print(stock)
         print('Product Stock lido')
+        return stocks
 
     def read_by_product_id_product_stock(self):
         tdict = {
                 "product_id": 2
                 }
         stocks = ProductStockDao(tdict).read_by_product_id()
-        for stock in stocks:
-            print(stock)
         print('Product Stock lido')
+        return stocks
 
     
     def read_by_id_product_stock(self):
@@ -148,9 +141,8 @@ class ProductController:
                 "id": 1
                 }
         stock = ProductStockDao(tdict).read_by_id()
-        print(stock)
         print('Product Stock lido')
-
+        return stock
 
 # Examples of values
 # prod_create = {
