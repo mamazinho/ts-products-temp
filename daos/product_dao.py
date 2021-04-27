@@ -80,6 +80,6 @@ class ProductDao:
         categories = []
         for category_id in product_categories:
             category = session.query(CategoryModel).filter_by(id=category_id)
-            categories.append(category)
+            categories.append(category[0])
             
         return categories
