@@ -46,11 +46,7 @@ class ProductController:
             self.create_product_stock(product_id, actual_stock)
 
     def delete_product(self, product_id):
-        product = {
-            'id': product_id,
-            'active': False
-        }
-        ProductDao(product).update()
+        self.update_product(product_id, active = False)
 
     def read_all_products(self):
         products = ProductDao().read()

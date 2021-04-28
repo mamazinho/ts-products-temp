@@ -29,7 +29,7 @@ class ProductDao:
 
     def read(self):
         with Database() as session:
-            products = session.query(ProductModel).all()
+            products = session.query(ProductModel).filter_by(active=True).all()
             return products
 
     def read_by_id(self):
@@ -40,18 +40,24 @@ class ProductDao:
 
     def read_by_name(self):
         with Database() as session:
-            product = session.query(ProductModel).filter(ProductModel.name.contains(self.product['name'])).all()
-            return product[0]
+            product = session.query(ProductModel).filter(
+                ProductModel.name.contains(self.product['name']),
+                ProductModel.active==True).all()
+            return product
 
     def read_by_gtin(self):
         with Database() as session:
-            product = session.query(ProductModel).filter_by(gtin=self.product['gtin'])
-            return product[0] 
+            product = session.query(ProductModel).filter(
+                ProductModel.gtin==self.product['gtin'],
+                ProductModel.active==True).all()
+            return product 
 
     def read_by_seller_id(self):
         with Database() as session:
-            product = session.query(ProductModel).filter_by(seller_id=self.product['seller_id']).all()
-            return product[0]
+            product = session.query(ProductModel).filter(
+                ProductModel.seller_id==self.product['seller_id'],
+                ProductModel.active==True).all()
+            return product
 
     def update(self):
         if not 'id' in self.product or not self.product['id']:
@@ -60,6 +66,7 @@ class ProductDao:
         with Database() as session:
             categories = self.__categories_object(session, self.product.get('categories'))
             the_product = session.query(ProductModel).filter_by(id=self.product['id'])
+
             the_product.update({
                 'id': self.product['id'],
                 'seller_id': self.product['seller_id'] if self.product['seller_id'] else the_product[0].seller_id,
@@ -69,6 +76,7 @@ class ProductDao:
                 'actual_stock': self.product['actual_stock'] if self.product['actual_stock'] else the_product[0].actual_stock,
                 'actual_price': self.product['actual_price'] if self.product['actual_price'] else the_product[0].actual_price,
                 'gtin': self.product['gtin'] if self.product['gtin'] else the_product[0].gtin,
+                'active': self.product['active'] if self.product['active'] == False else the_product[0].active,
             })
             the_product = session.query(ProductModel).get(self.product['id'])
             if categories:
